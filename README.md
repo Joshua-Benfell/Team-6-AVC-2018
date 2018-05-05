@@ -8,7 +8,9 @@ Limited Number of 3D printed Parts
 
 CAD of the ideal first iteration robot can be found [here](https://cad.onshape.com/documents/08e9d9368385752693ff540b/w/5e08d343f12d278fdeecea3f/e/0649d529fec4164917f1aebe).
 
-###Week 1 Checklist
+## Weekly Checklists
+
+### Week 1 Checklist
 - [x] Josh: CAD robot
 - [x] Josh: Print parts
 - [x] Jordan, Sam & Josh: Produce first prototype
@@ -17,7 +19,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 - [x] Josh: Set up collaboration spaces (Onshape, Github, Google Drive, Discord)
 - [x] Michael: Set up Bash Script for compiling on Pi
 
-####Week 1 Review (5th May 2018)
+#### Week 1 Review (5th May 2018)
 * Everyone has done their assigned tasks this week.
 * We have set up goals for next week ([Week 2 Checklist](#week-2-checklist))
 * Jordan didn't show up to first meeting outside lab but apologised due to parents being in town
@@ -25,7 +27,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Jordan, Michael, Sam and Josh were at the lab this week and all were in and throughout afterwards
 * Everyone who attended signed AVC plan and agreement
 
-###Week 2 Checklist
+### Week 2 Checklist
 - [ ] Josh: Update Github with progress
 - [ ] Sam: Assemble and test hardware
 - [ ] Someone: Research PID
@@ -33,7 +35,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 - [ ] Everyone: Implement code for first two quadrants
 - [ ] Everyone: Start on progress report
 
-###AVC Project Timetable
+## AVC Project Timetable
 Overall project plan
 
 | Week  | Team Objective(s) | Items Due | Conflicting Commitments | Tasks |
@@ -45,7 +47,7 @@ Overall project plan
 | 11 | Everything complete and ready for challenge  | |  | [Week 5 Checklist](#week-5-checklist) |
 | 12 | Do Challege. Submit Final Report | | ENGR101 Test 2- Wed 6 Jun | [Week 6 Checklist](#week-6-checklist)|
 
-###Weekly Progress Checklist
+## Weekly Progress Checklist
 - [ ] How has each team member performed against their goal set last week?
 - [ ] Have you set a goal for each team member for this/next week?
 - [ ] Has the team discussed which tasks are the most important or urgent?
