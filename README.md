@@ -1,5 +1,6 @@
 # Team-6-AVC-2018
 Wednesday Afternoon Lab Team 6 repository for the ENGR 101 AVC challenge.
+
 | Parts | Cost (Arthur$) |
 | :------------ |:---------------:|
 
@@ -33,6 +34,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 
 ###AVC Project Timetable
 Overall project plan
+
 | Week  | Team Objective(s) | Items Due | Conflicting Commitments | Tasks |
 | :------------ |:---------------:| ------: | ------: | ------: |
 | 7  | Robot Prototype made and moving |   |   | [Week 1 Checklist](#week-1-checklist) |
