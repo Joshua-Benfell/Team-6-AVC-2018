@@ -23,7 +23,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Jordan didn't show up to first meeting outside lab but apologised due to parents being in town
 * Michael didn't show up to second meeting but didn't see any messages pertaining to it, and apologised
 * Jordan, Michael, Sam and Josh were at the lab this week and all were in and throughout afterwards
-* Everyone who attentded signed AVC plan and agreement
+* Everyone who attended signed AVC plan and agreement
 
 ###Week 2 Checklist
 - [ ] Josh: Update Github with progress
