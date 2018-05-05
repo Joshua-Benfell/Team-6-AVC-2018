@@ -38,7 +38,7 @@ Overall project plan
 | Week  | Team Objective(s) | Items Due | Conflicting Commitments | Tasks |
 | :------------ |:---------------:| ------: | ------: | ------: |
 | 7  | Robot Prototype made and moving |   |   | [Week 1 Checklist](#week-1-checklist) |
-| 8  | First iteration of robot built. Quadrants 1 and 2 complete  | AVC plan  | [Week 2 Checklist](#week-2-checklist) |
+| 8  | First iteration of robot built. Quadrants 1 and 2 complete  | AVC plan  | | [Week 2 Checklist](#week-2-checklist) |
 | 9  | Quadrant 3 Complete, Start on Quadrant 4 Complete  | | COMP102/112 Test 2- Mon 14 May  | [Week 3 Checklist](#week-3-checklist) |
 | 10  | Quadrant 4 Complete, Refine of Hardware and Software (unless happy with how it is) | | ENGR121 Test 2 - Fri 25 May | [Week 4 Checklist](#week-4-checklist) |
 | 11 | Everything complete and ready for challenge  | |  | [Week 5 Checklist](#week-5-checklist) |
