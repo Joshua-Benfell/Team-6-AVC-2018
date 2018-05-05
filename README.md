@@ -31,6 +31,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 - [ ] Someone: Research PID
 - [ ] Michael: Set out how code is to be written (Style Guide)
 - [ ] Everyone: Implement code for first two quadrants
+- [ ] Everyone: Start on progress report
 
 ###AVC Project Timetable
 Overall project plan
@@ -40,7 +41,7 @@ Overall project plan
 | 7  | Robot Prototype made and moving |   |   | [Week 1 Checklist](#week-1-checklist) |
 | 8  | First iteration of robot built. Quadrants 1 and 2 complete  | AVC plan  | | [Week 2 Checklist](#week-2-checklist) |
 | 9  | Quadrant 3 Complete, Start on Quadrant 4 Complete  | | COMP102/112 Test 2- Mon 14 May  | [Week 3 Checklist](#week-3-checklist) |
-| 10  | Quadrant 4 Complete, Refine of Hardware and Software (unless happy with how it is) | | ENGR121 Test 2 - Fri 25 May | [Week 4 Checklist](#week-4-checklist) |
+| 10  | Quadrant 4 Complete, Refine of Hardware and Software (unless happy with how it is) | AVC Progress Report | ENGR121 Test 2 - Fri 25 May | [Week 4 Checklist](#week-4-checklist) |
 | 11 | Everything complete and ready for challenge  | |  | [Week 5 Checklist](#week-5-checklist) |
 | 12 | Do Challege. Submit Final Report | | ENGR101 Test 2- Wed 6 Jun | [Week 6 Checklist](#week-6-checklist)|
 
