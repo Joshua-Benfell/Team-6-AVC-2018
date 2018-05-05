@@ -1,6 +1,6 @@
 # Team-6-AVC-2018
 Wednesday Afternoon Lab Team 6 repository for the ENGR 101 AVC challenge.
-|Parts  | Cost (Arthur$)  |
+| Parts | Cost (Arthur$) |
 | :------------ |:---------------:|
 
 Limited Number of 3D printed Parts
