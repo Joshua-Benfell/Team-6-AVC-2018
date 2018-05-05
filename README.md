@@ -17,7 +17,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 - [x] Jordan & Sam: Refined prototype
 - [x] Jordan & Sam: Get robot moving
 - [x] Josh: Set up collaboration spaces (Onshape, Github, Google Drive, Discord)
-- [x] Michael: Set up Bash Script for compiling on Pi
+- [x] Michael: Set up Bash Script for compiling on RPi
 
 #### Week 1 Review (5th May 2018)
 * Everyone has done their assigned tasks this week.
