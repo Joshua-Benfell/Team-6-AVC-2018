@@ -8,13 +8,13 @@ Limited Number of 3D printed Parts
 CAD of the ideal first iteration robot can be found [here](https://cad.onshape.com/documents/08e9d9368385752693ff540b/w/5e08d343f12d278fdeecea3f/e/0649d529fec4164917f1aebe).
 
 ###Week 1 Checklist
--[x] Josh: CAD robot
--[x] Josh: Print parts
--[x] Jordan, Sam & Josh: Produce first prototype
--[x] Jordan & Sam: Refined prototype
--[x] Jordan & Sam: Get robot moving
--[x] Josh: Set up collaboration spaces (Onshape, Github, Google Drive, Discord)
--[x] Michael: Set up Bash Script for compiling on Pi
+- [x] Josh: CAD robot
+- [x] Josh: Print parts
+- [x] Jordan, Sam & Josh: Produce first prototype
+- [x] Jordan & Sam: Refined prototype
+- [x] Jordan & Sam: Get robot moving
+- [x] Josh: Set up collaboration spaces (Onshape, Github, Google Drive, Discord)
+- [x] Michael: Set up Bash Script for compiling on Pi
 
 ####Week 1 Review (5th May 2018)
 * Everyone has done their assigned tasks this week.
@@ -25,11 +25,11 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Everyone signed AVC plan
 
 ###Week 2 Checklist
--[ ] Josh: Update Github with progress
--[ ] Sam: Assemble and test hardware
--[ ] Someone: Research PID
--[ ] Michael: Set out how code is to be written (Style Guide)
--[ ] Everyone: Implement code for first two quadrants
+- [ ] Josh: Update Github with progress
+- [ ] Sam: Assemble and test hardware
+- [ ] Someone: Research PID
+- [ ] Michael: Set out how code is to be written (Style Guide)
+- [ ] Everyone: Implement code for first two quadrants
 
 ###AVC Project Timetable
 Overall project plan
