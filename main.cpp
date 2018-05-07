@@ -3,14 +3,23 @@
 #include "E101.h"
 #include <math.h>
 
-const motorLeft = 1;
-const motorRight = 2;
+//Motor Constants
+const int motorLeft = 2;
+const int motorRight = 1;
 
+//Network Constants
+const char server[15];
+const int port;
+const char request[6] = "Please";
+char password[24];
+
+//Function Declarations
 void leftMotor(int seconds, int milliseconds);
 void rightMotor(int seconds, int milliseconds);
 void moveForwardTime(int seconds);
 void moveForwardDistance(int centimeters);
 double distanceToTime(int centimeters);
+int networkGate();
 
 int main(){
     init();
@@ -62,3 +71,15 @@ void moveForwardTime(double time){
     sleep1(seconds, milliseconds);
     set_motor(motorRight, 0);
 }
+
+/* Function for connecting to the provided network to open the network gate
+ * connects to the network, sends a string receives and string.
+ * returns true if exchange was successful
+ */
+
+ int networkGate(){
+    int connetion = connect_to_server(server, port);
+    int send = send_to_server(request);
+    int received = receive_from_server(password);
+    //Deal with null termination
+ }
