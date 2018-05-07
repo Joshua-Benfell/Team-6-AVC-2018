@@ -8,10 +8,10 @@ const int motorLeft = 2;
 const int motorRight = 1;
 
 //Network Constants
-//const char server[15];
-//const int port;
-//const char request[6] = "Please";
-//char password[24];
+const char server[15] = "127.0.0.1" //Change this once we get the IP Address
+const int port = "6667"; //Change this once we get the port
+const char request[6] = "Please";
+char password[24];
 
 //Function Declarations
 void leftMotor(int seconds, int milliseconds);
@@ -167,11 +167,11 @@ void rightMotor(int seconds, int milliseconds) {
  * returns true if exchange was successful
  */
 
- /*int networkGate(){
-    int connetion = connect_to_server(server, port);
-    int send = send_to_server(request);
-    int received = receive_from_server(password);
-    //Deal with null termination
-
-    int sendAgain = send_to_server(password);
-}*/
+ int networkGate(){
+    if(connect_to_server(server, port) == 0){
+        int send = send_to_server(request);
+        int received = receive_from_server(password);
+        printf("%s\n", password);
+        int sendAgain = send_to_server(password);
+    }
+}
