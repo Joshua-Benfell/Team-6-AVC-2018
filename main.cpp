@@ -45,11 +45,11 @@ void moveForwardTime(double time){
                                                 //a million
 
 
-    set_motor(1,255);
-    set_motor(2,255);
+    set_motor(motorLeft,255);
+    set_motor(motorRight,255);
     sleep1(seconds, milliseconds);
-    set_motor(1,0);
-    set_motor(2,0);
+    set_motor(motorLeft,0);
+    set_motor(motorRight,0);
 }
 
     void leftMotor(int seconds, int milliseconds){
