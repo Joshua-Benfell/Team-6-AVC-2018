@@ -18,14 +18,9 @@ void rightMotor(int seconds, int milliseconds);
 void moveForwardTime(int seconds);
 void moveForwardDistance(int centimeters);
 double distanceToTime(int centimeters);
-<<<<<<< HEAD
 void followLine();
-
-//Left motor is #1
-//Right motor is #2
-=======
 int networkGate();
->>>>>>> b8981fd8b5634926dabc21a2bb5e7a36604da77a
+
 
 int main(){
     init();
@@ -107,18 +102,18 @@ double distanceToTime(int centimeters){
     return time;
 }
 
-<<<<<<< HEAD
 void moveForwardTime(int seconds){
-    set_motor(1,255);
-    set_motor(2,255);
+    set_motor(motorLeft,255);
+    set_motor(motorRight,255);
     sleep1(seconds, 0);
-    set_motor(1,0);
-    set_motor(2,0);
+    set_motor(motorLeft,0);
+    set_motor(motorRight,0);
 }
 
 void leftMotorTime(int seconds, int milliseconds){
-    set_motor(1,255);
-=======
+    set_motor(motorLeft,255);
+}
+
 void moveForwardTime(double time){
     int seconds = (int)floor(time);
     int milliseconds = (int)(time - seconds) * 1000000;
@@ -128,23 +123,23 @@ void moveForwardTime(double time){
     set_motor(motorLeft,255);
     set_motor(motorRight,255);
     sleep1(seconds, milliseconds);
-    set_motor(1,0);
+    set_motor(motorLeft,0);
     set_motor(motorRight,0);
 }
 
     void leftMotor(int seconds, int milliseconds){
     set_motor(motorLeft,255);
->>>>>>> b8981fd8b5634926dabc21a2bb5e7a36604da77a
+
     sleep1(seconds, milliseconds);
     set_motor(motorLeft,0);
 }
-<<<<<<< HEAD
+
 void leftMotor(int amount, bool isForward){
     if( isForward == false){
         amount = amount * -1;
     }
 
-    set_motor(1,amount);
+    set_motor(motorLeft,amount);
 }
 
 void rightMotor(int amount, bool isForward){
@@ -152,18 +147,18 @@ void rightMotor(int amount, bool isForward){
         amount = amount * -1;
     }
 
-    set_motor(2,amount);
+    set_motor(rightMotor,amount);
 }
 
 
 void rightMotorTime(int seconds, int milliseconds) {
     set_motor(2, 255);
-=======
-    void rightMotor(int seconds, int milliseconds) {
+}
+
+void rightMotor(int seconds, int milliseconds) {
     set_motor(motorRight, 255);
->>>>>>> b8981fd8b5634926dabc21a2bb5e7a36604da77a
     sleep1(seconds, milliseconds);
-    set_motor(2, 0);
+    set_motor(motorRight, 0);
 }
 
 /* Function for connecting to the provided network to open the network gate
