@@ -8,9 +8,9 @@ const int motorLeft = 2;
 const int motorRight = 1;
 
 //Network Constants
-const char server[15] = "127.0.0.1" //Change this once we get the IP Address
-const int port = "6667"; //Change this once we get the port
-const char request[6] = "Please";
+char server[15] = "127.0.0.1"; //Change this once we get the IP Address
+int port = 6667; //Change this once we get the port
+char request[24] = "Please";
 char password[24];
 
 //Function Declarations
@@ -26,7 +26,7 @@ void followLine();
 int main(){
     init();
 
-    followLine;
+    followLine();
 
     return 0;}
 
@@ -169,9 +169,11 @@ void rightMotor(int seconds, int milliseconds) {
 
  int networkGate(){
     if(connect_to_server(server, port) == 0){
-        int send = send_to_server(request);
-        int received = receive_from_server(password);
+        send_to_server(request);
+        receive_from_server(password);
         printf("%s\n", password);
-        int sendAgain = send_to_server(password);
+        send_to_server(password);
+        return -1;
     }
+    return 0;
 }
