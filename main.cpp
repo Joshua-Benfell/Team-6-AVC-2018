@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <time.h>
 #include "E101.h"
+#include <math.h>
 
 //Motor Constants
 const int motorLeft = 2;
 const int motorRight = 1;
 
 //Network Constants
-const char server[15];
-const int port;
-const char request[6] = "Please";
-char password[24];
+//const char server[15];
+//const int port;
+//const char request[6] = "Please";
+//char password[24];
 
 //Function Declarations
 void leftMotor(int seconds, int milliseconds);
@@ -19,7 +20,7 @@ void moveForwardTime(int seconds);
 void moveForwardDistance(int centimeters);
 double distanceToTime(int centimeters);
 void followLine();
-int networkGate();
+//int networkGate();
 
 
 int main(){
@@ -147,7 +148,7 @@ void rightMotor(int amount, bool isForward){
         amount = amount * -1;
     }
 
-    set_motor(rightMotor,amount);
+    set_motor(motorRight,amount);
 }
 
 
@@ -166,11 +167,11 @@ void rightMotor(int seconds, int milliseconds) {
  * returns true if exchange was successful
  */
 
- int networkGate(){
+ /*int networkGate(){
     int connetion = connect_to_server(server, port);
     int send = send_to_server(request);
     int received = receive_from_server(password);
     //Deal with null termination
 
     int sendAgain = send_to_server(password);
- }
+}*/
