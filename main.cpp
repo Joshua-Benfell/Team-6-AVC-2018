@@ -117,10 +117,7 @@ void leftMotorTime(int seconds, int milliseconds){
 
 void moveForwardTime(double time){
     int seconds = (int)floor(time);
-    int milliseconds = (int)(time - seconds) * 1000000;
-                                                //a million
-
-
+    int milliseconds = (int)(time - seconds) * 1000000; //a million
     set_motor(motorLeft,255);
     set_motor(motorRight,255);
     sleep1(seconds, milliseconds);
