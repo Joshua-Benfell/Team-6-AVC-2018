@@ -3,6 +3,9 @@
 #include "E101.h"
 #include <math.h>
 
+const motorLeft = 1;
+const motorRight = 2;
+
 void leftMotor(int seconds, int milliseconds);
 void rightMotor(int seconds, int milliseconds);
 void moveForwardTime(int seconds);
@@ -50,13 +53,12 @@ void moveForwardTime(double time){
 }
 
     void leftMotor(int seconds, int milliseconds){
-    set_motor(1,255);
+    set_motor(motorLeft,255);
     sleep1(seconds, milliseconds);
-    set_motor(1,0);
+    set_motor(motorLeft,0);
 }
     void rightMotor(int seconds, int milliseconds) {
-    set_motor(2, 255);
+    set_motor(motorRight, 255);
     sleep1(seconds, milliseconds);
-    set_motor(2, 0);
+    set_motor(motorRight, 0);
 }
-
