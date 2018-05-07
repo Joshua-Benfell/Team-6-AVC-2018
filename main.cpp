@@ -82,4 +82,6 @@ void moveForwardTime(double time){
     int send = send_to_server(request);
     int received = receive_from_server(password);
     //Deal with null termination
+
+    int sendAgain = send_to_server(password);
  }
