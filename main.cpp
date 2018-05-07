@@ -2,15 +2,30 @@
 #include <time.h>
 #include "E101.h"
 
+//Motor Constants
+const int motorLeft = 2;
+const int motorRight = 1;
+
+//Network Constants
+const char server[15];
+const int port;
+const char request[6] = "Please";
+char password[24];
+
+//Function Declarations
 void leftMotor(int seconds, int milliseconds);
 void rightMotor(int seconds, int milliseconds);
 void moveForwardTime(int seconds);
 void moveForwardDistance(int centimeters);
 double distanceToTime(int centimeters);
+<<<<<<< HEAD
 void followLine();
 
 //Left motor is #1
 //Right motor is #2
+=======
+int networkGate();
+>>>>>>> b8981fd8b5634926dabc21a2bb5e7a36604da77a
 
 int main(){
     init();
@@ -92,6 +107,7 @@ double distanceToTime(int centimeters){
     return time;
 }
 
+<<<<<<< HEAD
 void moveForwardTime(int seconds){
     set_motor(1,255);
     set_motor(2,255);
@@ -102,9 +118,27 @@ void moveForwardTime(int seconds){
 
 void leftMotorTime(int seconds, int milliseconds){
     set_motor(1,255);
+=======
+void moveForwardTime(double time){
+    int seconds = (int)floor(time);
+    int milliseconds = (int)(time - seconds) * 1000000;
+                                                //a million
+
+
+    set_motor(motorLeft,255);
+    set_motor(motorRight,255);
     sleep1(seconds, milliseconds);
     set_motor(1,0);
+    set_motor(motorRight,0);
 }
+
+    void leftMotor(int seconds, int milliseconds){
+    set_motor(motorLeft,255);
+>>>>>>> b8981fd8b5634926dabc21a2bb5e7a36604da77a
+    sleep1(seconds, milliseconds);
+    set_motor(motorLeft,0);
+}
+<<<<<<< HEAD
 void leftMotor(int amount, bool isForward){
     if( isForward == false){
         amount = amount * -1;
@@ -124,7 +158,22 @@ void rightMotor(int amount, bool isForward){
 
 void rightMotorTime(int seconds, int milliseconds) {
     set_motor(2, 255);
+=======
+    void rightMotor(int seconds, int milliseconds) {
+    set_motor(motorRight, 255);
+>>>>>>> b8981fd8b5634926dabc21a2bb5e7a36604da77a
     sleep1(seconds, milliseconds);
     set_motor(2, 0);
 }
 
+/* Function for connecting to the provided network to open the network gate
+ * connects to the network, sends a string receives and string.
+ * returns true if exchange was successful
+ */
+
+ int networkGate(){
+    int connetion = connect_to_server(server, port);
+    int send = send_to_server(request);
+    int received = receive_from_server(password);
+    //Deal with null termination
+ }
