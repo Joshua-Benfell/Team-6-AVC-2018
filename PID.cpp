@@ -1,0 +1,85 @@
+//Import Libraries
+#include "E101.h"
+#include <stdio.h>
+
+//Default Constant Values
+#define SCAN_ROW 120;
+#define DEBUG 0;
+const int LEFT_MOTOR = 1;
+const int RIGHT_MOTOR = 2;
+
+int main(){
+
+	init();
+
+	int v_init = 50; //Speed to go when error is 0
+	int following_line = 1; //Is following the line, allows termination
+
+	int pixels[320]; //Array of black and white pixels
+
+	//ERROR VALUES
+	int current_error = 0;
+	int prev_error = 0;
+	int total_error = 0;
+	int threshold = 0;
+	int min = 255;
+	int max = 0;
+
+	//PID CONSTANTS
+	int kp = 0.5;
+	int ki = 0.001;
+	int kd = 0.2;
+
+	//Initialise Signal Variables
+	int prop_sig = 0;
+	int integ_sig = 0;
+	int deriv_sig = 0;
+	int final_sig = 0;
+
+	//Initialise Misc Variables
+	int i, error, pix;
+
+	while(following_line) { //While we haven't terminated the code
+		take_picture(); // Take a photo
+
+		for (i = 0; i < 320; i++) {
+			pix = get_pixel(i, 120, 3); //For every pixel in the middle row
+			if (pix < min) { //Compare with min and max values and update min and max
+				min = pix;
+			}
+			if (pix > max) {
+				max = pix;
+			}
+		}
+
+		threshold = (max + min)/2; //Calculate the threshold between white and black pixels
+
+		for (i = 0; i < 320; i++) {
+			pix = get_pixel(i, 120, 3); //For every pixel in the middle row
+			if (pix > threshold) { //If the pixel is greater than the threshold then add white to the pixels array
+				pixels[i] = 1;
+			}
+			else { //else add 0
+				pixels[i] = 0;
+			}
+		}
+
+		for (i = 0; i < 320; i++) { //For every pixel in the pixels array
+			error = (i-160) * pixels[i]; //calculate a proportional error
+			current_error += error;
+		}
+
+		total_error += current_error; //add the current error to the total error
+
+		prop_sig = current_error * kp; //Calculate the proportional signal
+		prop_sig = (prop_sig/(160*1*kp))*255; //Might not need this line
+		integ_sig = total_error * ki; //Calculate the integral signal
+		deriv_sig = (current_error - prev_error) * kd; //Calculate the derivative signal
+		final_sig = prop_sig + integ_sig + deriv_sig; //Calculate the total signal buy adding all the values to it.
+
+		prev_error = current_error; //Set the previous error to the current error
+
+		set_motor(RIGHT_MOTOR, v_init - final_sig); //Output to the motors respectively
+		set_motor(LEFT_MOTOR, v_init + final_sig);
+	}
+}
