@@ -80,6 +80,10 @@ int main(){
 
 		prev_error = current_error; //Set the previous error to the current error
 
+		if (DEBUG) {
+			printf("Proportional: %f, Integral: %f, Derivative: %f, Final: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
+		}
+
 		set_motor(RIGHT_MOTOR, v_init - final_sig); //Output to the motors respectively
 		set_motor(LEFT_MOTOR, v_init + final_sig);
 	}
