@@ -12,14 +12,14 @@
 int main()
 {
 	init();
-	
+
 
 	int v_go = 50;
 	int err = 0;
 	float kp = 0.005;
-	//float kd = 0.001;
-	//int leftpix = 0;
-	//int rightpix = 0;
+//	float kd = 0.05;
+	//int past_err = 0;
+
 
 	//while(1)
 	//{
@@ -61,18 +61,7 @@ int main()
 			if ( pix > thr){
 				whi[i] = 1;
 				np = np +1;
-			//leftpix = leftpix+whi[i];
-
 			}
-			//whi[i]= 0 ;
-			//int pix = get_pixel(scan_row,i,3);
-			//if ( pix > thr)
-			///{
-			//	whi[i] = 1;
-			//	rightpix = rightpix+whi[i];
-			//}
-
-		//err = leftpix - rightpix;
 		}
     	err = 0;
 
@@ -87,6 +76,10 @@ int main()
 			display_picture(1,0);
 		}
     	int dv = (int)((float)err * kp);
+
+		//int de = err - past_err;
+		//int de_on_dt = de / TIME * kd;
+
     	int v_left = v_go + dv;
     	int v_right = v_go - dv;
 		if(DEBUG){
