@@ -89,8 +89,8 @@ int main()
 		int derivative = (int) (float)(err-prev_err) * kd;
 		prev_err = err;
     	int dv = (int)((float)err * kp);
-    	int v_left = v_go + dv + derivative;
-    	int v_right = v_go - dv - derivative;
+    	int v_left = v_go + dv - derivative;
+    	int v_right = v_go - dv + derivative;
 		if(DEBUG){
 	    	printf("v_left = %d v_right=%d\n dv = %d",v_left,v_right,dv);
 		}
