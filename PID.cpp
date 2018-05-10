@@ -18,26 +18,27 @@ int main(){
 	int pixels[320]; //Array of black and white pixels
 
 	//ERROR VALUES
-	int current_error = 0;
-	int prev_error = 0;
-	int total_error = 0;
+	float current_error = 0;
+	float prev_error = 0;
+	float total_error = 0;
 	int threshold = 0;
 	int min = 255;
 	int max = 0;
 
 	//PID CONSTANTS
-	int kp = 0.5;
-	int ki = 0.001;
-	int kd = 0.2;
+	float kp = 0.5;
+	float ki = 0.001;
+	float kd = 0.2;
 
 	//Initialise Signal Variables
-	int prop_sig = 0;
-	int integ_sig = 0;
-	int deriv_sig = 0;
-	int final_sig = 0;
+	float prop_sig = 0;
+	float integ_sig = 0;
+	float deriv_sig = 0;
+	float final_sig = 0;
 
 	//Initialise Misc Variables
-	int i, error, pix;
+	int i, pix;
+	float error;
 
 	while(following_line) { //While we haven't terminated the code
 		take_picture(); // Take a photo
