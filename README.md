@@ -46,6 +46,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Xian and Eris (Our other two members) have not shown up.
 * Goals for [Week 3](week-3-checklist) have been set up
 * We have collected 3 Long range IR sensors
+* Pictures of robot have been uploaded
 
 ### Week 3 Checklist
 - [ ] **Everyone: Start and complete the progress report**
