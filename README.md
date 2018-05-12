@@ -1,8 +1,9 @@
 # Team-6-AVC-2018
 Wednesday Afternoon Lab Team 6 repository for the ENGR 101 AVC challenge.
 
-| Parts | Cost (Arthur$) |
-| :------------ |:---------------:|
+| Parts                     | Cost (Arthur$)  |
+| ------------------------- | ---------------:|
+| 3 x Long Range IR Sensors |                 |
 
 Limited Number of 3D printed Parts
 
@@ -28,18 +29,36 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Everyone who attended signed AVC plan and agreement
 
 ### Week 2 Checklist
-- [ ] Josh: Update Github with progress
-- [ ] Sam: Assemble and test hardware
-- [ ] Someone: Research PID
-- [ ] Michael: Set out how code is to be written (Style Guide)
-- [ ] Everyone: Implement code for first two quadrants
+- [x] Josh: Update Github with progress
+- [x] Sam, Jordan: Assemble and test hardware
+- [x] ~~Someone: Research PID~~
+- [ ] ~~Michael: Set out how code is to be written (Style Guide)~~
+- [x] Everyone: Implement and Test code for first two quadrants
 - [ ] Everyone: Start on progress report
+
+#### Week 2 Review (12th May 2018)
+* We have not started on the progress report, so this is a priority goal for the next week
+* We have met the big goal for this week and have implemented line following code for quadrants 1 and 2 ([testQ1.cpp](testQ1.cpp))
+* We did not see the need for a style guide in the end
+* We learnt about PID in lecture
+* Hardware is almost done aside from a front mount for a final IR sensor, Jordan has expressed interest in designing this so that shall be his goal
+* Michael did not come to the lab this week due to needing to study for his CYBR171 test
+* Xian and Eris (Our other two members) have not shown up.
+* Goals for [Week 3](week-3-checklist) have been set up
+* We have collected 3 Long range IR sensors
+
+### Week 3 Checklist
+- [ ] **Everyone: Start and complete the progress report**
+- [ ] Sam, Josh: Implement and test code for Quadrant 3
+- [ ] Michael: Start on code for Quadrant 4
+- [ ] Jordan: Design a mount for front facing IR Sensor
+- [ ] Josh: Update the Github
 
 ## AVC Project Timetable
 Overall project plan
 
 | Week  | Team Objective(s) | Items Due | Conflicting Commitments | Tasks |
-| :------------ |:---------------:| ------: | ------: | ------: |
+| ------------: | --------------- | ------ | ------ | ------ |
 | 7  | Robot Prototype made and moving |   |   | [Week 1 Checklist](#week-1-checklist) |
 | 8  | First iteration of robot built. Quadrants 1 and 2 complete  | AVC plan  | CYBR171 Test Wed 9 May | [Week 2 Checklist](#week-2-checklist) |
 | 9  | Quadrant 3 Complete, Start on Quadrant 4 Complete  | | COMP102/112 Test 2- Mon 14 May  | [Week 3 Checklist](#week-3-checklist) |
