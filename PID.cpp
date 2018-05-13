@@ -78,7 +78,7 @@ int main(){
 		prop_sig = current_error * kp; //Calculate the proportional signal
 		integ_sig = total_error * ki; //Calculate the integral signal
 		deriv_sig = (current_error - prev_error) * kd; //Calculate the derivative signal
-		final_sig = prop_sig + integ_sig + deriv_sig; //Calculate the total signal buy adding all the values to it.
+		final_sig = prop_sig + integ_sig + deriv_sig; //Calculate the total signal by adding all the values to it.
 		final_sig = (final_sig/(160*1*kp))*255; //Might not need this line
 
 

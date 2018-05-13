@@ -50,8 +50,8 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Pictures of robot have been uploaded
 
 ### Week 3 Checklist
-- [ ] **Everyone: Start and complete the progress report**
-- [ ] Sam, Josh: Implement and test code for Quadrant 3
+- [ ] ***IMPORTANT*** Everyone: Start and complete the progress report
+- [ ] Sam, Josh, Michael: Implement and test code for Quadrant 3
 - [ ] Michael: Start on code for Quadrant 4
 - [ ] Jordan: Design a mount for front facing IR Sensor
 - [ ] Josh: Update the Github
