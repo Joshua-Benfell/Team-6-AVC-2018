@@ -15,20 +15,16 @@ int main(){
 	int v_init = 50; //Speed to go when error is 0
 	int following_line = 1; //Is following the line, allows termination
 
-	int pixels[320]; //Array of black and white pixels
-
 	//ERROR VALUES
 	float current_error = 0;
 	float prev_error = 0;
 	float total_error = 0;
 	int threshold = 0;
-	int min = 255;
-	int max = 0;
 
 	//PID CONSTANTS
-	float kp = 0.5;
-	float ki = 0.001;
-	float kd = 0.2;
+	float kp = 0.003;
+	float ki = 0.00001;
+	float kd = 0.001;
 
 	//Initialise Signal Variables
 	float prop_sig = 0;
@@ -41,6 +37,13 @@ int main(){
 	float error;
 
 	while(following_line) { //While we haven't terminated the code
+
+		//reset some variables
+		int min = 255;
+		int max = 0;
+		int pixels[320]; //Array of black and white pixels
+		current_error = 0;
+
 		take_picture(); // Take a photo
 
 		for (i = 0; i < 320; i++) {
@@ -73,10 +76,11 @@ int main(){
 		total_error += current_error; //add the current error to the total error
 
 		prop_sig = current_error * kp; //Calculate the proportional signal
-		prop_sig = (prop_sig/(160*1*kp))*255; //Might not need this line
 		integ_sig = total_error * ki; //Calculate the integral signal
 		deriv_sig = (current_error - prev_error) * kd; //Calculate the derivative signal
 		final_sig = prop_sig + integ_sig + deriv_sig; //Calculate the total signal buy adding all the values to it.
+		final_sig = (final_sig/(160*1*kp))*255; //Might not need this line
+
 
 		prev_error = current_error; //Set the previous error to the current error
 
