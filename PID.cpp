@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 //Default Constant Values
-#define SCAN_ROW 120;
-#define DEBUG 0;
+const int SCAN_ROW = 120;
+const int DEBUG =  0;
 const int LEFT_MOTOR = 1;
 const int RIGHT_MOTOR = 2;
 
