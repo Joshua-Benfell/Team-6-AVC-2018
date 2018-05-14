@@ -23,8 +23,8 @@ int main(){
 
 	//PID CONSTANTS
 	float kp = 0.003;
-	float ki = 0.00000001;
-	float kd = 0.0001;
+	float ki = 0.000000016;
+	float kd = 0.00015;
 
 	//Initialise Signal Variables
 	float prop_sig = 0;
