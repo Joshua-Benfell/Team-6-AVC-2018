@@ -4,7 +4,7 @@
 
 //Default Constant Values
 const int SCAN_ROW = 120;
-const int DEBUG =  0;
+const int DEBUG =  1;
 const int LEFT_MOTOR = 1;
 const int RIGHT_MOTOR = 2;
 
@@ -16,15 +16,15 @@ int main(){
 	int following_line = 1; //Is following the line, allows termination
 
 	//ERROR VALUES
-	float current_error = 0;
+	//float current_error = 0;
 	float prev_error = 0;
 	float total_error = 0;
 	int threshold = 0;
 
 	//PID CONSTANTS
 	float kp = 0.003;
-	float ki = 0.00001;
-	float kd = 0.001;
+	float ki = 0.00000001;
+	float kd = 0.0001;
 
 	//Initialise Signal Variables
 	float prop_sig = 0;
@@ -42,12 +42,12 @@ int main(){
 		int min = 255;
 		int max = 0;
 		int pixels[320]; //Array of black and white pixels
-		current_error = 0;
+		float current_error = 0;
 
 		take_picture(); // Take a photo
 
 		for (i = 0; i < 320; i++) {
-			pix = get_pixel(i, 120, 3); //For every pixel in the middle row
+			pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
 			if (pix < min) { //Compare with min and max values and update min and max
 				min = pix;
 			}
@@ -59,7 +59,7 @@ int main(){
 		threshold = (max + min)/2; //Calculate the threshold between white and black pixels
 
 		for (i = 0; i < 320; i++) {
-			pix = get_pixel(i, 120, 3); //For every pixel in the middle row
+			pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
 			if (pix > threshold) { //If the pixel is greater than the threshold then add white to the pixels array
 				pixels[i] = 1;
 			}
@@ -79,7 +79,7 @@ int main(){
 		integ_sig = total_error * ki; //Calculate the integral signal
 		deriv_sig = (current_error - prev_error) * kd; //Calculate the derivative signal
 		final_sig = prop_sig + integ_sig + deriv_sig; //Calculate the total signal by adding all the values to it.
-		final_sig = (final_sig/(160*1*kp))*255; //Might not need this line
+		//final_sig = (final_sig/(160*1*kp))*255; //Might not need this line
 
 
 		prev_error = current_error; //Set the previous error to the current error
@@ -88,7 +88,7 @@ int main(){
 			printf("Proportional: %f, Integral: %f, Derivative: %f, Final: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
 		}
 
-		set_motor(RIGHT_MOTOR, v_init - final_sig); //Output to the motors respectively
-		set_motor(LEFT_MOTOR, v_init + final_sig);
+		set_motor(LEFT_MOTOR, v_init - final_sig); //Output to the motors respectively
+		set_motor(RIGHT_MOTOR, v_init + final_sig);
 	}
 }
