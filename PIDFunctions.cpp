@@ -12,6 +12,8 @@ const int DEBUG = 1;
 const int LEFT_MOTOR = 1;
 const int RIGHT_MOTOR = 2;
 const int PIC_WIDTH = 320;
+const int ALL_BLACK_THRESHOLD = 100;
+const int ALL_WHITE_THRESHOLD = 200;
 
 //Networking Variables
 char SERVER[15] = {"130.195.6.196"};
@@ -21,7 +23,7 @@ char passwordArray[24] = {};
 
 //PID CONSTANTS
 const float kp = 0.0019;
-const float ki = 0.0000000005;
+const float ki = 0.000000001;
 const float kd = 0.0002;
 
 //Global Vars
@@ -31,6 +33,7 @@ int LINE_THRESHOLD = 0;
 int PIC_MID = PIC_WIDTH / 2;
 float TOTAL_ERROR = 0;
 float PREV_ERROR = 0;
+int quadrant = 1;
 
 //Function Declarations
 void followLine();
@@ -38,6 +41,7 @@ void calcMinMax(int min, int max);
 void convertToBW(int list[PIC_WIDTH]);
 int calcPropError(int list[PIC_WIDTH]);
 float calcSignal(int prop_err);
+void moveMotors(int speed);
 
 void openGate();
 
@@ -56,6 +60,12 @@ void openGate(){
 		send_to_server(passwordArray);
 		printf("Password: %s\n", passwordArray);
 	}
+	quadrant++;
+}
+
+void moveMotors(int speed){
+	set_motor(LEFT_MOTOR, speed);
+	set_motor(RIGHT_MOTOR, speed);
 }
 
 void followLine(){
@@ -73,20 +83,27 @@ void followLine(){
 
 		calcMinMax(min, max);
 
-		LINE_THRESHOLD = (max + min)/2;
+		if (max < ALL_BLACK_THRESHOLD) {
+			moveMotors(-50);
+		} else if (min > ALL_WHITE_THRESHOLD) {
+			printf("Look it's an all white thingy\n");
+			moveMotors(0);
+		} else {
+			LINE_THRESHOLD = (max + min)/2;
 
-		convertToBW(pixels);
+			convertToBW(pixels);
 
-		prop_err = calcPropError(pixels);
+			prop_err = calcPropError(pixels);
 
-		TOTAL_ERROR += prop_err;
+			TOTAL_ERROR += prop_err;
 
-		final_sig = calcSignal(prop_err);
+			final_sig = calcSignal(prop_err);
 
-		PREV_ERROR = prop_err;
+			PREV_ERROR = prop_err;
 
-		set_motor(LEFT_MOTOR, V_INIT - final_sig); //Output to the motors respectively
-		set_motor(RIGHT_MOTOR, V_INIT + final_sig);
+			set_motor(LEFT_MOTOR, V_INIT - final_sig); //Output to the motors respectively
+			set_motor(RIGHT_MOTOR, V_INIT + final_sig);
+		}
 	}
 }
 
