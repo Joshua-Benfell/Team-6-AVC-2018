@@ -6,17 +6,15 @@
 
 int main() {
     init();
-    /*char serverAddr[15] = {"1","3","0",
-                      ".","1","9","5",
-                      ".","6",".",
-                      "1","9","6"};*/
+    //Connection Address
     char serverAddr[15] = {"130.195.6.196"};
 
-    //char pleaseArray[24] = {"p","l","e","a","s","e"};
+    //'password' for asking for password
     char pleaseArray[24] = {"Please"};
+	//Array for storing the password
     char passwordArray[24] = {};
 
-
+	//Successful connection returns 0
     if (connect_to_server(serverAddr, 1024) == 0){
         printf("Connection Established \n");
         send_to_server(pleaseArray);
