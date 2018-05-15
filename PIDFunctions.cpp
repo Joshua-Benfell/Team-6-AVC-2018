@@ -20,8 +20,8 @@ char PLEASE_ARRAY[24] = {"Please"};
 char passwordArray[24] = {};
 
 //PID CONSTANTS
-const float kp = 0.002;
-const float ki = 0.000000001;
+const float kp = 0.0019;
+const float ki = 0.0000000005;
 const float kd = 0.0002;
 
 //Global Vars
