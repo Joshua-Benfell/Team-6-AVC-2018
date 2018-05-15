@@ -2,10 +2,6 @@
 #include "E101.h"
 #include <stdio.h>
 
-//Not sure what these libraries are for, ask Michael
-#include <iostream>
-#include <ctime>
-
 //Default Constant Values
 const int SCAN_ROW = 120;
 const int DEBUG = 1;
