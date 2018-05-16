@@ -30,11 +30,13 @@ int PIC_MID = PIC_WIDTH / 2; //Middle of image
 float TOTAL_ERROR = 0; //Declare total error for integral signal
 float PREV_ERROR = 0; //Declare previous error for derivative signal
 int quadrant = 1; //Keep track of which quadrant we are in
+int min = 255;
+int max = 0;
 
 //Function Declarations
 //Line following
 void followLine();
-void calcMinMax(int min, int max);
+void calcMinMax();
 void convertToBW(int list[PIC_WIDTH]);
 int calcPropError(int list[PIC_WIDTH]);
 float calcSignal(int prop_err);
@@ -88,14 +90,14 @@ void followLine(){
 
 	while (FOLLOWING_LINE) {
 		//Reset these variables
-		int min = 255;
-		int max = 0;
+		min = 255;
+		max = 0;
 		int pixels[PIC_WIDTH];
 		float current_error = 0;
 
 		take_picture();
 
-		calcMinMax(min, max);
+		calcMinMax();
 
 		if (DEBUG) {
 			printf("Max: %d, Min: %d\n", max, min);
@@ -129,12 +131,9 @@ void followLine(){
 
 /** calcMinMax
  *  Function that finds the min and max of a list.
- *  Assigns these values to variables through location reference.
- *  @params:
- *  	- min reference to the min variable
- *  	- max reference to the max variable
+ *  Assigns these values to variables to the global vars
  */
-void calcMinMax(int min, int max){
+void calcMinMax(){
 	for (int i = 0; i < PIC_WIDTH; i++) {
 
 		int pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
