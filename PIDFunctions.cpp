@@ -9,7 +9,7 @@ const int LEFT_MOTOR = 1;
 const int RIGHT_MOTOR = 2;
 const int PIC_WIDTH = 320;
 const int ALL_BLACK_THRESHOLD = 100; //Lower bound when it's considered all black
-const int ALL_WHITE_THRESHOLD = 200; //Upper bound when it's considered all white
+const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all white
 
 //Networking Variables
 char SERVER[15] = {"130.195.6.196"};
@@ -105,10 +105,12 @@ void followLine(){
 
 		//determine if it's "all black", "all white", or still on the line
 		if (max < ALL_BLACK_THRESHOLD) {
-			moveMotors(-50); //Move back
+			moveMotors(-35); //Move back
+			sleep1(2,0);
 		} else if (min > ALL_WHITE_THRESHOLD) {
 			printf("Look it's an all white thingy\n");
 			FOLLOWING_LINE = 0; //Terminate Loop
+			quadrant++;
 		} else {
 			LINE_THRESHOLD = (max + min)/2;
 
@@ -198,7 +200,7 @@ float calcSignal(int prop_err){
 	float prop_sig = (float) prop_err * kp; //Calculate the proportional signal
 	float integ_sig = TOTAL_ERROR * ki; //Calculate the integral signal
 	float deriv_sig = ((float) prop_sig - PREV_ERROR) * kd; //Calculate the derivative signal
-	float final_sig = prop_sig + integ_sig + deriv_sig; //Calculate the total signal by adding all the values to it.
+	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it.
 
 	if (DEBUG) {
 		printf("Proportional: %f, Integral: %f, Derivative: %f, Final: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
