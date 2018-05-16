@@ -34,7 +34,7 @@ int min = 255;
 int max = 0;
 
 //Function Declarations
-//Line following
+//Line following Quadrant 2
 void followLine();
 void calcMinMax();
 void convertToBW(int list[PIC_WIDTH]);
