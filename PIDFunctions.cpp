@@ -93,7 +93,6 @@ void followLine(){
 		min = 255;
 		max = 0;
 		int pixels[PIC_WIDTH];
-		float current_error = 0;
 
 		take_picture();
 
