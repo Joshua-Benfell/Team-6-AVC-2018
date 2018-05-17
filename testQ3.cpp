@@ -37,6 +37,7 @@ void convertToBW(int list[PIC_WIDTH]);
 int calcPropError(int list[PIC_WIDTH]);
 float calcSignal(int prop_err);
 void moveMotors(int speed);
+void doFollowLine();
 //Networking function for quadrant 1
 void openGate();
 void followMaze();
@@ -45,6 +46,7 @@ int main(){
 	init();
 	//openGate();
 	followLine();
+	followMaze();
 	return 0;
 }
 
@@ -90,15 +92,11 @@ void moveMotors(int speed){
  *  terminates when we reach the end of quadrant 2 (all white with the white strip)
  */
 void followLine(){
-	//Initialise Signal Variables
-	int prop_err = 0;
-	float final_sig = 0;
 
 	while (FOLLOWING_LINE) {
 		//Reset these variables
 		min = 255;
 		max = 0;
-		int pixels[PIC_WIDTH];
 
 		take_picture();
 
@@ -118,52 +116,63 @@ void followLine(){
 		    moveMotors(-V_INIT); //Move back
 			//sleep1(1,0);    // allows time to find the
 
-
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
                 printf("Black Threshold loop \n");
             }
+
 		} else if (min > ALL_WHITE_THRESHOLD) {
+
 			printf("------------------------\n");
 		    printf("T Intersection Detected!\n "
-                   " Not Moving to follow maze function\n");
+                   " Now Moving to follow maze function\n");
             printf("------------------------\n");
-			sleep1(5 ,0);
+			moveMotors(40);
+			sleep1(2 ,0);
 			//Break should probably be used here
-			//FOLLOWING_LINE = 0; //Terminate Loop
-			//FOLLOWING_MAZE = 1; //Initiate Quadrant3 loop
+			FOLLOWING_LINE = 0; //Terminate Loop
+			FOLLOWING_MAZE = 1; //Initiate Quadrant3 loop
+			quadrant++;
             //Changed this to call the follow maze function
-            followMaze();
+            break;
+
 		} else {
-			LINE_THRESHOLD = (max + min)/2;
 
-			convertToBW(pixels);
+			doFollowLine();
 
-			prop_err = calcPropError(pixels);
-
-			TOTAL_ERROR += prop_err;
-
-			final_sig = calcSignal(prop_err);
-
-			PREV_ERROR = prop_err;
-
-			//Output to the motors respectively
-			set_motor(LEFT_MOTOR, V_INIT - final_sig);
-			set_motor(RIGHT_MOTOR, V_INIT + final_sig);
 		}
 	}
 
 }
 
+void doFollowLine(){
+	int pixels[PIC_WIDTH];
+
+	LINE_THRESHOLD = (max + min)/2;
+
+	convertToBW(pixels);
+
+	int prop_err = calcPropError(pixels);
+
+	TOTAL_ERROR += prop_err;
+
+	float final_sig = calcSignal(prop_err);
+
+	PREV_ERROR = prop_err;
+
+	//Output to the motors respectively
+	set_motor(LEFT_MOTOR, V_INIT - final_sig);
+	set_motor(RIGHT_MOTOR, V_INIT + final_sig);
+}
+
 void followMaze(){
-    int prop_err = 0;
-    float final_sig = 0;
+	PREV_ERROR = 0;
+	TOTAL_ERROR = 0;
     while (FOLLOWING_MAZE) {
         //Reset these variables
         min = 255;
         max = 0;
-        int pixels[PIC_WIDTH];
 
         take_picture();
         calcMinMax();
@@ -179,8 +188,8 @@ void followMaze(){
                    "Moving back!\n");
             printf("------------------------\n");
 
-            //setting motors to move backwards
-            set_motor(LEFT_MOTOR, -V_INIT);
+            //setting motors to turn on the spot
+            set_motor(LEFT_MOTOR, V_INIT);
             set_motor(RIGHT_MOTOR, -V_INIT);
 
             printf("Entered Black Threshold loop");
@@ -201,21 +210,8 @@ void followMaze(){
             set_motor(RIGHT_MOTOR, -V_INIT);
             sleep1(0,500000);
         } else {
-            LINE_THRESHOLD = (max + min)/2;
 
-            convertToBW(pixels);
-
-            prop_err = calcPropError(pixels);
-
-            TOTAL_ERROR += prop_err;
-
-            final_sig = calcSignal(prop_err);
-
-            PREV_ERROR = prop_err;
-
-            //Output to the motors respectively
-            set_motor(LEFT_MOTOR, V_INIT - final_sig);
-            set_motor(RIGHT_MOTOR, V_INIT + final_sig);
+		 	doFollowLine();
 
         }
     }
@@ -267,12 +263,10 @@ void convertToBW(int list[PIC_WIDTH]){
  *		- current_error integer that is the proportional error from the line
  */
 int calcPropError(int list[PIC_WIDTH]){
-	int error;
 	int current_error = 0;
 
 	for (int i = 0; i < PIC_WIDTH; i++) { //For every pixel in the pixels array
-		error = (i-PIC_MID) * list[i]; //calculate a proportional error
-		current_error += error;
+		current_error += (i-PIC_MID);
 	}
 
 	return current_error;
