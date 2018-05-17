@@ -13,12 +13,12 @@ const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all whit
 const int RIGHT_ANGLE_VAL = 8000;
 
 //PID CONSTANTS
-const float kp = 0.005;
+const float kp = 0.0019;
 const float ki = 0.000000001;
 const float kd = 0.0002;
 
 //Global Vars
-int V_INIT = 80; //Default motor speed
+int V_INIT = 50; //Default motor speed
 int FOLLOWING_LINE = 1; //Boolean value for if it should be following
 int FOLLOWING_MAZE = 0; //Boolean value for Quadrant3 init
 int LINE_THRESHOLD = 0; //Declare the threshold which is calculated in the followLine() method
@@ -266,7 +266,7 @@ int calcPropError(int list[PIC_WIDTH]){
 	int current_error = 0;
 
 	for (int i = 0; i < PIC_WIDTH; i++) { //For every pixel in the pixels array
-		current_error += (i-PIC_MID);
+		current_error += (i-PIC_MID) * list[i];
 	}
 
 	return current_error;
