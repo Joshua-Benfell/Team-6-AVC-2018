@@ -10,6 +10,7 @@ const int RIGHT_MOTOR = 2;
 const int PIC_WIDTH = 320;
 const int ALL_BLACK_THRESHOLD = 100; //Lower bound when it's considered all black
 const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all white
+const int RIGHT_ANGLE_VAL = 8000;
 
 //PID CONSTANTS
 const float kp = 0.0019;
@@ -164,9 +165,9 @@ void followMaze(){
             printf("------------------------\n");
             printf("T intersection detected!\n");
             printf("------------------------\n");
-            set_motor(LEFT_MOTOR, -V_INIT*0.5);
-            set_motor(RIGHT_MOTOR, -V_INIT*0.5);
-            sleep1(1,0);
+            set_motor(LEFT_MOTOR, V_INIT);
+            set_motor(RIGHT_MOTOR, -V_INIT);
+            sleep1(0,500000);
         } else {
             LINE_THRESHOLD = (max + min)/2;
 
@@ -183,6 +184,7 @@ void followMaze(){
             //Output to the motors respectively
             set_motor(LEFT_MOTOR, V_INIT - final_sig);
             set_motor(RIGHT_MOTOR, V_INIT + final_sig);
+
         }
     }
 }
