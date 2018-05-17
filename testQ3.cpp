@@ -11,19 +11,13 @@ const int PIC_WIDTH = 320;
 const int ALL_BLACK_THRESHOLD = 100; //Lower bound when it's considered all black
 const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all white
 
-//Networking Variables
-char SERVER[15] = {"130.195.6.196"};
-int PORT = 1024;
-char PLEASE_ARRAY[24] = {"Please"};
-char passwordArray[24] = {};
-
 //PID CONSTANTS
 const float kp = 0.0019;
 const float ki = 0.000000001;
 const float kd = 0.0002;
 
 //Global Vars
-int V_INIT = 45; //Default motor speed
+int V_INIT = 60; //Default motor speed
 int FOLLOWING_LINE = 1; //Boolean value for if it should be following
 int FOLLOWING_MAZE = 0; //Boolean value for Quadrant3 init
 int LINE_THRESHOLD = 0; //Declare the threshold which is calculated in the followLine() method
@@ -44,6 +38,7 @@ float calcSignal(int prop_err);
 void moveMotors(int speed);
 //Networking function for quadrant 1
 void openGate();
+void followMaze();
 
 int main(){
 	init();
@@ -59,8 +54,15 @@ int main(){
  *  Increments the quadrant as we should have left that zone after the gate opens.
  */
 void openGate(){
-	if(connect_to_server(SERVER, PORT) == 0){
-		printf("Connection Established\n");
+    //Variables moved as they didn't need to be public
+    //Networking Variables
+    char SERVER[15] = {"130.195.6.196"};
+    int PORT = 1024;
+    char PLEASE_ARRAY[24] = {"Please"};
+    char passwordArray[24] = {};
+
+    if(connect_to_server(SERVER, PORT) == 0){
+        printf("Connection Established\n");
 		send_to_server(PLEASE_ARRAY);
 		receive_from_server(passwordArray);
 		send_to_server(passwordArray);
@@ -100,17 +102,21 @@ void followLine(){
 		calcMinMax();
 
 		if (DEBUG) {
-			printf("Max: %d, Min: %d\n", max, min);
-		}
+            printf("Max: %d, Min: %d\n", max, min);
+        }
 
 		//determine if it's "all black", "all white", or still on the line
 		if (max < ALL_BLACK_THRESHOLD) {
 			moveMotors(-35); //Move back
 			sleep1(2,0);
 		} else if (min > ALL_WHITE_THRESHOLD) {
-			printf("T INTERSECTION DETECTED\n");
+			printf("T Intersection Detected!\n Moving to follow maze function \n");
+			sleep1(1,0);
+			//Break should probably be used here
 			FOLLOWING_LINE = 0; //Terminate Loop
 			FOLLOWING_MAZE = 1; //Initiate Quadrant3 loop
+            //Changed this to call the follow maze function
+            followMaze();
 		} else {
 			LINE_THRESHOLD = (max + min)/2;
 
@@ -129,48 +135,56 @@ void followLine(){
 			set_motor(RIGHT_MOTOR, V_INIT + final_sig);
 		}
 	}
-	while (FOLLOWING_MAZE) {
-		//Reset these variables
-		min = 255;
-		max = 0;
-		int pixels[PIC_WIDTH];
 
-		take_picture();
+}
 
-		calcMinMax();
+void followMaze(){
+    int prop_err = 0;
+    float final_sig = 0;
+    while (FOLLOWING_MAZE) {
+        //Reset these variables
+        min = 255;
+        max = 0;
+        int pixels[PIC_WIDTH];
 
-		if (DEBUG) {
-			printf("Max: %d, Min: %d\n", max, min);
-		}
+        take_picture();
 
-		//determine if it's "all black", "all white", or still on the line
-		if (max < ALL_BLACK_THRESHOLD) {
-			set_motor(LEFT_MOTOR, V_INIT);
-			set_motor(RIGHT_MOTOR, -V_INIT);
-			sleep1(1,0);
-		} else if (min > ALL_WHITE_THRESHOLD) {
-			printf("T intersection\n");
-			set_motor(LEFT_MOTOR, -V_INIT*0.75);
-			set_motor(RIGHT_MOTOR, -V_INIT*0.75);
-			sleep1(1,0);
-		} else {
-			LINE_THRESHOLD = (max + min)/2;
+        calcMinMax();
 
-			convertToBW(pixels);
+        if (DEBUG) {
+            printf("Max: %d, Min: %d\n", max, min);
+        }
 
-			prop_err = calcPropError(pixels);
+        //determine if it's "all black", "all white", or still on the line
+        if (max < ALL_BLACK_THRESHOLD) {
+            set_motor(LEFT_MOTOR, V_INIT);
+            set_motor(RIGHT_MOTOR, -V_INIT);
+            sleep1(1,0);
+        } else if (min > ALL_WHITE_THRESHOLD) {
+            printf("------------------------\n");
+            printf("T intersection detected!\n");
+            printf("------------------------\n");
+            set_motor(LEFT_MOTOR, -V_INIT*0.5);
+            set_motor(RIGHT_MOTOR, -V_INIT*0.5);
+            sleep1(1,0);
+        } else {
+            LINE_THRESHOLD = (max + min)/2;
 
-			TOTAL_ERROR += prop_err;
+            convertToBW(pixels);
 
-			final_sig = calcSignal(prop_err);
+            prop_err = calcPropError(pixels);
 
-			PREV_ERROR = prop_err;
+            TOTAL_ERROR += prop_err;
 
-			//Output to the motors respectively
-			set_motor(LEFT_MOTOR, V_INIT - final_sig);
-			set_motor(RIGHT_MOTOR, V_INIT + final_sig);
-		}
-	}
+            final_sig = calcSignal(prop_err);
+
+            PREV_ERROR = prop_err;
+
+            //Output to the motors respectively
+            set_motor(LEFT_MOTOR, V_INIT - final_sig);
+            set_motor(RIGHT_MOTOR, V_INIT + final_sig);
+        }
+    }
 }
 
 /** calcMinMax
@@ -245,7 +259,7 @@ float calcSignal(int prop_err){
 	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it.
 
 	if (DEBUG) {
-		printf("Proportional: %f, Integral: %f, Derivative: %f, Final: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
+		printf("P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
 	}
 
 	return final_sig;
