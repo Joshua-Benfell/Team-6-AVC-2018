@@ -111,7 +111,10 @@ void followLine(){
 			moveMotors(-35); //Move back
 			sleep1(2,0);
 		} else if (min > ALL_WHITE_THRESHOLD) {
-			printf("T Intersection Detected!\n Moving to follow maze function \n");
+			printf("------------------------\n");
+		    printf("T Intersection Detected!\n "
+                   "Moving to follow maze function\n");
+            printf("------------------------\n");
 			sleep1(1,0);
 			//Break should probably be used here
 			FOLLOWING_LINE = 0; //Terminate Loop
@@ -158,13 +161,24 @@ void followMaze(){
 
         //determine if it's "all black", "all white", or still on the line
         if (max < ALL_BLACK_THRESHOLD) {
-            set_motor(LEFT_MOTOR, V_INIT);
+            //output
+            printf("------------------------\n");
+            printf("No line detected!\n"
+                   "Turning moving back!");
+            printf("------------------------\n");
+
+            //setting motors to move backwards
+            set_motor(LEFT_MOTOR, -V_INIT);
             set_motor(RIGHT_MOTOR, -V_INIT);
             sleep1(1,0);
-        } else if (min > ALL_WHITE_THRESHOLD) {
+        } else if (min > ALL_WHITE_THRESHOLD){
+            //output
             printf("------------------------\n");
-            printf("T intersection detected!\n");
+            printf("T intersection detected!\n"
+                   "Turning left!");
             printf("------------------------\n");
+
+            //Turning left on the spot (90 degree turn?)
             set_motor(LEFT_MOTOR, V_INIT);
             set_motor(RIGHT_MOTOR, -V_INIT);
             sleep1(0,500000);
@@ -258,11 +272,11 @@ float calcSignal(int prop_err){
 	float prop_sig = (float) prop_err * kp; //Calculate the proportional signal
 	float integ_sig = TOTAL_ERROR * ki; //Calculate the integral signal
 	float deriv_sig = ((float) prop_sig - PREV_ERROR) * kd; //Calculate the derivative signal
-	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it.
+	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it
 
-	if (DEBUG) {
-		printf("P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
-	}
+	        //output
+	        printf("Line detected!");
+	        printf("P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
 
 	return final_sig;
 }
