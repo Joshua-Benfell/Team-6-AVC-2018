@@ -11,6 +11,7 @@ const int PIC_WIDTH = 320;
 const int ALL_BLACK_THRESHOLD = 100; //Lower bound when it's considered all black
 const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all white
 const int RIGHT_ANGLE_VAL = 8000;
+const int BOUND = 20;
 
 //PID CONSTANTS
 const float kp = 0.0019;
@@ -113,13 +114,13 @@ void followLine(){
                    "Moving back!\n");
             printf("------------------------\n");
 
-		    moveMotors(-V_INIT); //Move back
+		    moveMotors(-40); //Move back
 			//sleep1(1,0);    // allows time to find the
 
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
-                printf("Black Threshold loop \n");
+                printf("Black Threshold loop Q2\n");
             }
 
 		} else if (min > ALL_WHITE_THRESHOLD) {
@@ -189,14 +190,14 @@ void followMaze(){
             printf("------------------------\n");
 
             //setting motors to turn on the spot
-            set_motor(LEFT_MOTOR, V_INIT);
-            set_motor(RIGHT_MOTOR, -V_INIT);
+            set_motor(LEFT_MOTOR, 60);
+            set_motor(RIGHT_MOTOR, -60);
 
-            printf("Entered Black Threshold loop");
+            printf("Entered Black Threshold loop Q3\n");
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
-                printf("Entered Black Threshold loop");
+                printf("Entered Black Threshold loop Q3\n");
             }
         } else if (min > ALL_WHITE_THRESHOLD){
             //output
@@ -243,13 +244,16 @@ void calcMinMax(){
  */
 void convertToBW(int list[PIC_WIDTH]){
 	for (int i = 0; i < PIC_WIDTH; i++) {
+		if (i - PIC_MID > BOUND-PIC_MID && i - PIC_MID < PIC_MID-BOUND && FOLLOWING_MAZE) {
+			int pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
 
-		int pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
-
-		if (pix > LINE_THRESHOLD) { //If the pixel is greater than the threshold then add white to the pixels array
-			list[i] = 1;
-		}
-		else { //else add 0
+			if (pix > LINE_THRESHOLD) { //If the pixel is greater than the threshold then add white to the pixels array
+				list[i] = 1;
+			}
+			else { //else add 0
+				list[i] = 0;
+			}
+		} else{
 			list[i] = 0;
 		}
 	}
