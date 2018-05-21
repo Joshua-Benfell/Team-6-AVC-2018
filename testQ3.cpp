@@ -30,6 +30,8 @@ int quadrant = 1; //Keep track of which quadrant we are in
 int min = 255;
 int max = 0;
 
+FILE* f = fopen("logFile.txt", "w+");
+
 //Function Declarations
 //Line following Quadrant 2
 void followLine();
@@ -45,8 +47,9 @@ void followMaze();
 
 int main(){
 	init();
-	//openGate();
+	openGate();
 	followLine();
+	fclose(f);
 	followMaze();
 	return 0;
 }
@@ -68,11 +71,11 @@ void openGate(){
     char passwordArray[24] = {};
 
     if (connect_to_server(serverAddr, 1024) == 0){
-        printf("Connection Established\n");
+        fprintf(f,"Connection Established\n");
 		send_to_server(pleaseArray);
 		receive_from_server(passwordArray);
 		send_to_server(passwordArray);
-		printf("Password: %s\n", passwordArray);
+		fprintf(f,"Password: %s\n", passwordArray);
 	}
 	quadrant++;
 }
@@ -109,10 +112,10 @@ void followLine(){
 		//determine if it's "all black", "all white", or still on the line
 		if (max < ALL_BLACK_THRESHOLD) {
             //output
-            printf("------------------------\n");
-            printf("No line detected!\n"
+            fprintf(f,"------------------------\n");
+            fprintf(f,"No line detected!\n"
                    "Moving back!\n");
-            printf("------------------------\n");
+            fprintf(f,"------------------------\n");
 
 		    moveMotors(-40); //Move back
 			//sleep1(1,0);    // allows time to find the
@@ -120,15 +123,15 @@ void followLine(){
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
-                printf("Black Threshold loop Q2\n");
+                fprintf(f,"Black Threshold loop Q2\n");
             }
 
 		} else if (min > ALL_WHITE_THRESHOLD) {
 
-			printf("------------------------\n");
-		    printf("T Intersection Detected!\n "
+			fprintf(f,"------------------------\n");
+		    fprintf(f,"T Intersection Detected!\n "
                    " Now Moving to follow maze function\n");
-            printf("------------------------\n");
+            fprintf(f,"------------------------\n");
 			moveMotors(40);
 			sleep1(2 ,0);
 			//Break should probably be used here
@@ -244,7 +247,7 @@ void calcMinMax(){
  */
 void convertToBW(int list[PIC_WIDTH]){
 	for (int i = 0; i < PIC_WIDTH; i++) {
-		if (i - PIC_MID > BOUND-PIC_MID && i - PIC_MID < PIC_MID-BOUND && FOLLOWING_MAZE) {
+		if (1) {
 			int pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
 
 			if (pix > LINE_THRESHOLD) { //If the pixel is greater than the threshold then add white to the pixels array
@@ -291,8 +294,8 @@ float calcSignal(int prop_err){
 	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it
 
 	        //output
-	        printf("Line detected! \n");
-	        printf("P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
+	        fprintf(f,"Line detected! \n");
+	        fprintf(f,"P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
 
 	return final_sig;
 }
