@@ -290,7 +290,7 @@ int calcPropError(int list[PIC_WIDTH]){
 float calcSignal(int prop_err){
 	float prop_sig = (float) prop_err * kp; //Calculate the proportional signal
 	float integ_sig = TOTAL_ERROR * ki; //Calculate the integral signal
-	float deriv_sig = ((float) prop_sig - PREV_ERROR) * kd; //Calculate the derivative signal
+	float deriv_sig = ((float) prop_err - PREV_ERROR) * kd; //Calculate the derivative signal
 	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it
 
 	        //output
