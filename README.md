@@ -50,11 +50,31 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Pictures of robot have been uploaded
 
 ### Week 3 Checklist
-- [ ] ***IMPORTANT*** Everyone: Start and complete the progress report
-- [ ] Sam, Josh, Michael: Implement and test code for Quadrant 3
+- [x] ***IMPORTANT*** Everyone: Start and complete the progress report
+- [x] Sam, Josh, Michael: Implement and test code for Quadrant 3
 - [ ] Michael: Start on code for Quadrant 4
-- [ ] Jordan: Design a mount for front facing IR Sensor
-- [ ] Josh: Update the Github
+- [x] Jordan: Design a mount for front facing IR Sensor
+- [x] Josh: Update the Github
+
+#### Week 3 Review (19th May 2018)
+* Everyone completed the progress report
+* We managed to implement and test code for Quadrant 3, however, we did not complete it so did not progress to starting onto quadrant 4
+* Everyone turned up to the scheduled lab time.
+* Goals for [Week4](week-4-checklist) have been set up 
+* Everyone met their goals, Michael was unable to start on quadrant 4 due to us not completing quadrant 3 as a group.
+* We are a little bit behind our project timetable. Need to catch up next week
+
+### Week 4 Checklist
+- [ ] Josh: Complete Quadrant 3 & detecting the orange/red patches
+- [ ] Michael, Josh: Complete Quadrant 4
+- [ ] Jordan: print a switch mount
+- [ ] Jordan: Design & Print a top plate
+- [ ] Sam: Swap wheels out and reassemble hardware
+- [ ] Sam: Improve cable management
+
+#### Week 4 Review
+* Quadrant 3 has been completed
+* Everyone turned up to the scheduled lab on Wednesday
 
 ## AVC Project Timetable
 Overall project plan
