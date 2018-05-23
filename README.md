@@ -71,6 +71,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 - [ ] Jordan: Design & Print a top plate
 - [ ] Sam: Swap wheels out and reassemble hardware
 - [ ] Sam: Improve cable management
+- [ ] Josh: Update Github
 
 #### Week 4 Review
 * Quadrant 3 has been completed
