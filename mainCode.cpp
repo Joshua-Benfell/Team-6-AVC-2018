@@ -44,6 +44,7 @@ void doFollowLine();
 //Networking function for quadrant 1
 void openGate();
 void followMaze();
+void doWallMaze();
 
 int main(){
 	init();
@@ -117,22 +118,24 @@ void followLine(){
                    "Moving back!\n");
             fprintf(f,"------------------------\n");
 
-		    moveMotors(-40); //Move back
+		    moveMotors(-V_INIT); //Move back
 			//sleep1(1,0);    // allows time to find the
 
+            int i = 0;
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
-                fprintf(f,"Black Threshold loop Q2\n");
+                i++;
             }
-sleep1(0,500000);
+            fprintf(f,"Black threshold loop ran for %d frames", i);
+        sleep1(0,500000);
 
 		} else if (min > ALL_WHITE_THRESHOLD) {
 
-			printf("------------------------\n");
+			printf("-----------------------------------\n");
 		    printf("T Intersection Detected!\n "
                    " Now Moving to follow maze function\n");
-            printf("------------------------\n");
+            printf("-----------------------------------\n");
 			moveMotors(40);
 			sleep1(2 ,0);
 			//Break should probably be used here
@@ -221,6 +224,34 @@ void followMaze(){
 		 	doFollowLine();
 
         }
+    }
+}
+
+void doWallMaze(){
+    int leftIR;
+    int rightIR;
+    int centerIR;
+
+    float irCoef = 1; //adjustable
+
+    while(true){
+        //A0 = Front left IR
+        //A1 = Front right IR
+        //A2 = Front center IR
+
+        //"Frame"
+        leftIR = 1024 - read_analog(0);
+        rightIR = 1024 -  read_analog(1);
+        centerIR = 1024 - read_analog(2);
+
+        if (leftIR >= rightIR){
+            set_motor(RIGHT_MOTOR, V_INIT * (leftIR/rightIR) * irCoef);
+            set_motor(LEFT_MOTOR, V_INIT);
+        } else if (leftIR <= rightIR){
+            set_motor(RIGHT_MOTOR,V_INIT);
+            set_motor(LEFT_MOTOR, V_INIT * (rightIR/leftIR) * irCoef);
+        }
+
     }
 }
 
