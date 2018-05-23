@@ -14,12 +14,12 @@ const int RIGHT_ANGLE_VAL = 8000;
 const int BOUND = 20;
 
 //PID CONSTANTS
-const float kp = 0.0019;
-const float ki = 0.000000001;
-const float kd = 0.0002;
+const float kp = 0.002;
+const float ki = 0.0000000012;
+const float kd = 0.00001;
 
 //Global Vars
-int V_INIT = 60; //Default motor speed
+int V_INIT = 50; //Default motor speed
 int FOLLOWING_LINE = 1; //Boolean value for if it should be following
 int FOLLOWING_MAZE = 0; //Boolean value for Quadrant3 init
 int LINE_THRESHOLD = 0; //Declare the threshold which is calculated in the followLine() method
@@ -29,7 +29,6 @@ float PREV_ERROR = 0; //Declare previous error for derivative signal
 int quadrant = 1; //Keep track of which quadrant we are in
 int min = 255;
 int max = 0;
-float maxSignal = 0;
 
 FILE* f = fopen("logFile.txt", "w+");
 
@@ -50,8 +49,8 @@ int main(){
 	init();
 	openGate();
 	followLine();
-	fclose(f);
 	followMaze();
+	fclose(f);
 	return 0;
 }
 
@@ -118,36 +117,24 @@ void followLine(){
                    "Moving back!\n");
             fprintf(f,"------------------------\n");
 
-            printf("------------------------\n");
-            printf("No line detected!\n"
-                      "Moving back!\n");
-            printf("------------------------\n");
-
-		    moveMotors(-V_INIT); //Move back
-
+		    moveMotors(-40); //Move back
+			//sleep1(1,0);    // allows time to find the
 
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
                 fprintf(f,"Black Threshold loop Q2\n");
-                printf("Black Threshold loop Q2\n");
-
             }
+sleep1(0,500000);
 
 		} else if (min > ALL_WHITE_THRESHOLD) {
 
-			fprintf(f,"------------------------\n");
-		    fprintf(f,"T Intersection Detected!\n "
+			printf("------------------------\n");
+		    printf("T Intersection Detected!\n "
                    " Now Moving to follow maze function\n");
-            fprintf(f,"------------------------\n");
-
             printf("------------------------\n");
-            printf("T Intersection Detected!\n "
-                   "Now Moving to follow maze function\n");
-            printf("------------------------\n");
-			moveMotors(V_INIT);
+			moveMotors(40);
 			sleep1(2 ,0);
-			printf("Stopped sleeping");
 			//Break should probably be used here
 			FOLLOWING_LINE = 0; //Terminate Loop
 			FOLLOWING_MAZE = 1; //Initiate Quadrant3 loop
@@ -185,21 +172,19 @@ void doFollowLine(){
 }
 
 void followMaze(){
-    printf("followMaze started");
 	PREV_ERROR = 0;
 	TOTAL_ERROR = 0;
-	float tIntersections = 0;
-
-    //while (FOLLOWING_MAZE) {
-    while (true){
+    while (FOLLOWING_MAZE) {
         //Reset these variables
         min = 255;
         max = 0;
+	
+	V_INIT =  40;	
 
         take_picture();
         calcMinMax();
 
-        printf("Maze: (Max: %d, Min: %d)\n", max, min);
+        printf("Max: %d, Min: %d\n", max, min);
 
 
         //determine if it's "all black", "all white", or still on the line
@@ -207,45 +192,34 @@ void followMaze(){
             //output
             printf("------------------------\n");
             printf("No line detected!\n"
-                   "Moving back!\n"
-                   "Maze ABT\n");
+                   "Moving back!\n");
             printf("------------------------\n");
 
             //setting motors to turn on the spot
-            set_motor(LEFT_MOTOR, V_INIT);
-            set_motor(RIGHT_MOTOR, -V_INIT);
+            set_motor(LEFT_MOTOR, 60);
+            set_motor(RIGHT_MOTOR, -60);
 
             printf("Entered Black Threshold loop Q3\n");
             while (max < ALL_BLACK_THRESHOLD){
                 take_picture();
                 calcMinMax();
-                printf("Black Threshold loop Q3\n");
+                printf("Entered Black Threshold loop Q3\n");
             }
         } else if (min > ALL_WHITE_THRESHOLD){
             //output
             printf("------------------------\n");
             printf("T intersection detected!\n"
-                   "Turning left! \n"
-                   "Maze AWT #%f", tIntersections);
+                   "Turning left! \n");
             printf("------------------------\n");
-
-            //Adds 1 to the number of T Intersections detected
-            tIntersections++;
 
             //Turning left on the spot (90 degree turn?)
             set_motor(LEFT_MOTOR, V_INIT);
             set_motor(RIGHT_MOTOR, -V_INIT);
-            //sleep1(0,500000);
-
-            //While it's at the T intersection, once this condition is no longer true it should follow the
-            //line it has now found
-            while (min > ALL_WHITE_THRESHOLD){
-                take_picture();
-                calcMinMax();
-                printf("White Threshold loop Q3\n");
-            }
+            sleep1(0,500000);
         } else {
+
 		 	doFollowLine();
+
         }
     }
 }
@@ -275,17 +249,20 @@ void calcMinMax(){
  *		- list[PIC_WIDTH] an array of integers that is the length of the width of the picture from the camera
  */
 void convertToBW(int list[PIC_WIDTH]){
-	for (int i = 0; i < PIC_WIDTH; i++){
-        int pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
+	for (int i = 0; i < PIC_WIDTH; i++) {
+		if (1) {
+			int pix = get_pixel(SCAN_ROW, i, 3); //For every pixel in the middle row
 
-        if (pix > LINE_THRESHOLD) { //If the pixel is greater than the threshold then add white to the pixels array
-            list[i] = 1;
-        }
-        else { //else add 0
-            list[i] = 0;
-        }
-
-    }
+			if (pix > LINE_THRESHOLD) { //If the pixel is greater than the threshold then add white to the pixels array
+				list[i] = 1;
+			}
+			else { //else add 0
+				list[i] = 0;
+			}
+		} else{
+			list[i] = 0;
+		}
+	}
 }
 
 /** calcPropError
@@ -316,25 +293,12 @@ int calcPropError(int list[PIC_WIDTH]){
 float calcSignal(int prop_err){
 	float prop_sig = (float) prop_err * kp; //Calculate the proportional signal
 	float integ_sig = TOTAL_ERROR * ki; //Calculate the integral signal
-	float deriv_sig = ((float) prop_err - PREV_ERROR) * kd; //Calculate the derivative signal
+	float deriv_sig = ((float) prop_sig - PREV_ERROR) * kd; //Calculate the derivative signal
 	float final_sig = prop_sig + integ_sig - deriv_sig; //Calculate the total signal by adding all the values to it
 
-	//output
-	fprintf(f,"Line detected! \n");
-	fprintf(f,"P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
+	        //output
+	        printf("Line detected! \n");
+	        fprintf(f,"P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
 
-    printf("Line detected! \n");
-    printf("P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
-
-    if (maxSignal = 0){
-        return final_sig;
-    } else if (final_sig > maxSignal){
-        return maxSignal;
-    }
-
-}
-//Sets the value for the maximum signal
-//if 0, signal is returned unaltered in the calc signal method
-void setMaxSignal(int max){
-    maxSignal = max;
+	return final_sig;
 }
