@@ -178,8 +178,8 @@ void followMaze(){
         //Reset these variables
         min = 255;
         max = 0;
-	
-	V_INIT =  40;	
+
+	V_INIT =  40;
 
         take_picture();
         calcMinMax();
