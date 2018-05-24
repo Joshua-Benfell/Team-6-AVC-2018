@@ -277,6 +277,28 @@ int lineOnSide(){
 	}
 }
 
+int detectQuadFour(){
+
+	int blueMin = 255;
+	int blueMax = 0;
+	int redMin = 255;
+	int redMax = 0;
+
+	for (int i = 0; i < PIC_WIDTH; i++) {
+
+		int bluePix = get_pixel(SCAN_ROW, i, 2); //For every pixel in the middle row
+		int redPix = get_pixel(SCAN_ROW, i, 0); //For every pixel in the middle row
+
+
+		if (pix < min) { //Compare with min and max values and update min and max
+			min = pix;
+		}
+		if (pix > max) {
+			max = pix;
+		}
+	}
+}
+
 void doWallMaze(){
     int leftIR;
     int rightIR;
