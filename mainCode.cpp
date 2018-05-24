@@ -213,14 +213,13 @@ void followMaze(){
 			} else{
 				set_motor(LEFT_MOTOR, 60);
 	            set_motor(RIGHT_MOTOR, -60);
+				printf("Entered Black Threshold loop Q3\n");
+	            while (max < ALL_BLACK_THRESHOLD){
+	                take_picture();
+	                calcMinMax();
+	                printf("Entered Black Threshold loop Q3\n");
+	            }
 			}
-
-            printf("Entered Black Threshold loop Q3\n");
-            while (max < ALL_BLACK_THRESHOLD){
-                take_picture();
-                calcMinMax();
-                printf("Entered Black Threshold loop Q3\n");
-            }
         } else if (min > ALL_WHITE_THRESHOLD){
             //output
             printf("------------------------\n");
