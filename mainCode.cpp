@@ -12,6 +12,7 @@ const int PIC_WIDTH = 320;
 const int PIC_HEIGHT = 240;
 const int ALL_BLACK_THRESHOLD = 100; //Lower bound when it's considered all black
 const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all white
+const int BLUE_THRESHOLD = 40;
 const int RIGHT_ANGLE_VAL = 8000;
 const int BOUND = 20;
 
@@ -296,6 +297,12 @@ int detectQuadFour(){
 		if (pix > max) {
 			max = pix;
 		}
+	}
+	if (blueMax < BLUE_THRESHOLD) {
+		return 1;
+	}
+	else {
+		return 0;
 	}
 }
 
