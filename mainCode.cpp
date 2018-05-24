@@ -4,10 +4,12 @@
 
 //Default Constant Values
 const int SCAN_ROW = 120;
+const int SCAN_COL = 80;
 const int DEBUG = 1; //Enable Debug messages
 const int LEFT_MOTOR = 1;
 const int RIGHT_MOTOR = 2;
 const int PIC_WIDTH = 320;
+const int PIC_HEIGHT = 240;
 const int ALL_BLACK_THRESHOLD = 100; //Lower bound when it's considered all black
 const int ALL_WHITE_THRESHOLD = 100; //Upper bound when it's considered all white
 const int RIGHT_ANGLE_VAL = 8000;
@@ -44,6 +46,7 @@ void doFollowLine();
 //Networking function for quadrant 1
 void openGate();
 void followMaze();
+int lineOnSide();
 void doWallMaze();
 
 int main(){
@@ -199,8 +202,18 @@ void followMaze(){
             printf("------------------------\n");
 
             //setting motors to turn on the spot
-            set_motor(LEFT_MOTOR, 60);
-            set_motor(RIGHT_MOTOR, -60);
+			if(lineOnSide() == 1){
+				set_motor(LEFT_MOTOR, V_INIT);
+	            set_motor(RIGHT_MOTOR, -V_INIT);
+	            sleep1(0,500000);
+			} else if (lineOnSide() == 2) {
+				set_motor(LEFT_MOTOR, -V_INIT);
+	            set_motor(RIGHT_MOTOR, V_INIT);
+	            sleep1(0,500000);
+			} else{
+				set_motor(LEFT_MOTOR, 60);
+	            set_motor(RIGHT_MOTOR, -60);
+			}
 
             printf("Entered Black Threshold loop Q3\n");
             while (max < ALL_BLACK_THRESHOLD){
@@ -225,6 +238,44 @@ void followMaze(){
 
         }
     }
+}
+
+int lineOnSide(){
+	int sideMin = 255;
+	int sideMax = 0;
+	for (int i = 0; i < PIC_HEIGHT; i++) {
+
+		int pix = get_pixel(i, SCAN_COL, 3); //For every pixel in the middle row
+
+		if (pix < sideMin) { //Compare with min and max values and update min and max
+			sideMax = pix;
+		}
+		if (pix > sideMax) {
+			sideMax = pix;
+		}
+	}
+	if (sideMax > ALL_BLACK_THRESHOLD){
+		return 1;
+	} else {
+		sideMin = 255;
+		sideMax = 0;
+		for (int i = 0; i < PIC_HEIGHT; i++) {
+
+			int pix = get_pixel(i, PIC_WIDTH-SCAN_COL, 3); //For every pixel in the middle row
+
+			if (pix < sideMin) { //Compare with min and max values and update min and max
+				sideMax = pix;
+			}
+			if (pix > sideMax) {
+				sideMax = pix;
+			}
+		}
+		if (sideMax > ALL_BLACK_THRESHOLD) {
+			return 2;
+		} else{
+			return 0;
+		}
+	}
 }
 
 void doWallMaze(){
