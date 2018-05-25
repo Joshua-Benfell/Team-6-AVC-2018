@@ -16,6 +16,7 @@ const int BLUE_THRESHOLD = 40;
 const int RIGHT_ANGLE_VAL = 8000;
 const int BOUND = 20;
 
+
 //PID CONSTANTS
 const float kp = 0.002;
 const float ki = 0.0000000012;
@@ -33,6 +34,7 @@ int quadrant = 1; //Keep track of which quadrant we are in
 int min = 255;
 int max = 0;
 
+
 FILE* f = fopen("logFile.txt", "w+");
 
 //Function Declarations
@@ -49,12 +51,15 @@ void openGate();
 void followMaze();
 int lineOnSide();
 void doWallMaze();
+int detectQuadFour();
 
 int main(){
 	init();
 	openGate();
 	followLine();
 	followMaze();
+	printf("Yeet");
+	doWallMaze();
 	fclose(f);
 	return 0;
 }
@@ -233,7 +238,7 @@ void followMaze(){
             set_motor(RIGHT_MOTOR, -V_INIT);
             sleep1(0,500000);
         } else {
-			if (detectQuadFour) {
+			if (detectQuadFour()) {
 				quadrant++;
 				FOLLOWING_MAZE = 0;
 				break;
@@ -288,21 +293,31 @@ int detectQuadFour(){
 	int blueMax = 0;
 	int redMin = 255;
 	int redMax = 0;
+	
+	take_picture();
+	
 
-	for (int i = 0; i < PIC_WIDTH; i++) {
+	for (int i = 140; i < 180; i++) {
 
 		int bluePix = get_pixel(SCAN_ROW, i, 2); //For every pixel in the middle row
 		int redPix = get_pixel(SCAN_ROW, i, 0); //For every pixel in the middle row
 
 
-		if (pix < min) { //Compare with min and max values and update min and max
-			min = pix;
+		if (redPix < redMin) { //Compare with min and max values and update min and max
+			redMin = redPix;
 		}
-		if (pix > max) {
-			max = pix;
+		if (redPix> redMax) {
+			redMax = redPix;
+		}
+		if (bluePix < blueMin) { //Compare with min and max values and update min and max
+			blueMin = bluePix;
+		}
+		if (bluePix> blueMax) {
+			blueMax = bluePix;
 		}
 	}
-	if (redMax > 240) {
+	if (redMax > 250 &&
+		blueMax < 140) {
 		return 1;
 	}
 	else {
@@ -310,6 +325,7 @@ int detectQuadFour(){
 	}
 }
 
+/*
 void doWallMaze(){
     int leftIR;
     int rightIR;
@@ -333,6 +349,46 @@ void doWallMaze(){
         } else if (leftIR <= rightIR){
             set_motor(RIGHT_MOTOR,V_INIT);
             set_motor(LEFT_MOTOR, V_INIT * (rightIR/leftIR) * irCoef);
+        }
+
+    }
+}*/
+
+
+void doWallMaze(){
+    int leftIR;
+    int rightIR;
+    //int centerIR;
+	
+	V_INIT = 35;
+	
+while(true){
+        //A0 = Front left IR
+        //A1 = Front right IR
+        //A2 = Front center IR
+	
+	
+	float irCoef = 0.08;
+	float rightCoef = 0.088;
+        //"Frame"
+        leftIR = 1024 - read_analog(0);
+        rightIR = 1024 - read_analog(1);
+        //centerIR = 1024 - read_analog(2);
+        int lDiff = leftIR - rightIR;
+	int rDiff = rightIR - leftIR;
+		
+        if (leftIR >= rightIR){
+            set_motor(RIGHT_MOTOR, V_INIT + lDiff * rightCoef);
+            set_motor(LEFT_MOTOR, V_INIT);
+	    float speed_increase = lDiff * irCoef;
+            printf("Left Dist %d \n Speed Increase %f \n \n,", lDiff, speed_increase);
+            //sleep1(1,0);
+        } else if (leftIR <= rightIR){
+            set_motor(RIGHT_MOTOR,V_INIT);
+            set_motor(LEFT_MOTOR, V_INIT + rDiff * irCoef);
+            float speed_increase = rDiff * irCoef;
+            printf("Right Dist %d \n Speed Increase %f \n \n,", rDiff, speed_increase);
+		//sleep1(1,0);
         }
 
     }
