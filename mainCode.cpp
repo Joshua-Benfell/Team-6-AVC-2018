@@ -233,7 +233,11 @@ void followMaze(){
             set_motor(RIGHT_MOTOR, -V_INIT);
             sleep1(0,500000);
         } else {
-
+			if (detectQuadFour) {
+				quadrant++;
+				FOLLOWING_MAZE = 0;
+				break;
+			}
 		 	doFollowLine();
 
         }
@@ -298,7 +302,7 @@ int detectQuadFour(){
 			max = pix;
 		}
 	}
-	if (blueMax < BLUE_THRESHOLD) {
+	if (redMax > 240) {
 		return 1;
 	}
 	else {
