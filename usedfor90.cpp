@@ -145,7 +145,7 @@ void followLine(){
 		    printf("T Intersection Detected!\n "
                    " Now Moving to follow maze function\n");
             printf("-----------------------------------\n");
-			moveMotors(40);
+			moveMotors(V_INIT);
 			sleep1(2 ,0);
 			//Break should probably be used here
 			FOLLOWING_LINE = 0; //Terminate Loop
@@ -207,13 +207,17 @@ void followMaze(){
                    "Moving back!\n");
             printf("------------------------\n");
 
+		moveMotors(-40);
+	sleep1(0,500000);
+		moveMotors(0);
+
             //setting motors to turn on the spot
 			if(lineOnSide() == 1){
-				set_motor(LEFT_MOTOR, V_INIT);
-	            set_motor(RIGHT_MOTOR, -V_INIT);
+				set_motor(LEFT_MOTOR, 60);
+	            set_motor(RIGHT_MOTOR, -60);
 	            sleep1(0,500000);
 			} else if (lineOnSide() == 2) {
-				set_motor(LEFT_MOTOR, -V_INIT);
+				set_motor(LEFT_MOTOR, -60);
 	            set_motor(RIGHT_MOTOR, V_INIT);
 	            sleep1(0,500000);
 			} else{
@@ -360,7 +364,7 @@ void doWallMaze(){
     int rightIR;
     //int centerIR;
 	
-	V_INIT = 40;
+	V_INIT = 35;
 	
 while(true){
         //A0 = Front left IR
