@@ -309,9 +309,9 @@ int detectQuadFour(){
 	int blueMax = 0;
 	int redMin = 255;
 	int redMax = 0;
-	
+
 	take_picture();
-	
+
 
 	for (int i = 140; i < 180; i++) {
 
@@ -390,6 +390,10 @@ void doWallMaze() {
                        speed_increase);
 
             }
+			if(center > 500){
+				set_motor(LEFT_MOTOR, -V_INIT);
+				set_motor(RIGHT_MOTOR, V_INIT);
+			}
             if (detectQuadFour()){
                 stage = 1;
             }
