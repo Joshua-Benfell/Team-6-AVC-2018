@@ -18,7 +18,7 @@ const int BOUND = 20;
 
 
 //PID CONSTANTS
-const float kp = 0.002;
+const float kp = 0.0019;
 const float ki = 0.0000000012;
 const float kd = 0.00001;
 
@@ -55,14 +55,12 @@ int detectQuadFour();
 
 int main(){
 	init();
-	//openGate();
-	//followLine();
-	//followMaze();
-	printf("Yeet");
+	openGate();
+	followLine();
+	followMaze();
+	//printf("Yeet");
 	doWallMaze();
-	//fclose(f);
-
-
+	fclose(f);
 	return 0;
 }
 
@@ -129,7 +127,7 @@ void followLine(){
                    "Moving back!\n");
             fprintf(f,"------------------------\n");
 
-		    moveMotors(-V_INIT); //Move back
+		    moveMotors(-(V_INIT * 0.75)); //Move back
 			//sleep1(1,0);    // allows time to find the
 
             int i = 0;
@@ -197,7 +195,7 @@ void followMaze(){
         min = 255;
         max = 0;
 
-	V_INIT =  40;
+	V_INIT =  (V_INIT * 0.75);
 
         take_picture();
         calcMinMax();
@@ -219,7 +217,7 @@ void followMaze(){
             set_motor(LEFT_MOTOR, -V_INIT);
             set_motor(RIGHT_MOTOR, V_INIT);
 
-	        sleep1(0,500000);
+	        sleep1(1,0);
 
             //setting motors to turn on the spot
 			if(lineOnSide() == 1){
@@ -357,7 +355,7 @@ void doWallMaze() {
     float rightCoef = 0.088;
     int rHandDistance = 400;
 
-    V_INIT = 55;
+    V_INIT = 40;
 
 
     while (true) {
@@ -370,13 +368,13 @@ void doWallMaze() {
         centerIR = read_analog(1);
         rightIR = read_analog(2);
 
-        if (stage == 0) {
+
+        if (true){
+
             int lDiff = leftIR - rightIR;
             int rDiff = rightIR - leftIR;
 
-            if (centerIR < 200) {
-
-            } else if (leftIR >= rightIR) {
+            if (leftIR >= rightIR) {
                 set_motor(RIGHT_MOTOR, V_INIT + lDiff * rightCoef);
                 set_motor(LEFT_MOTOR, V_INIT);
                 float speed_increase = lDiff * irCoef;
@@ -390,9 +388,20 @@ void doWallMaze() {
                        speed_increase);
 
             }
-			if(center > 500){
+			if(centerIR > 450){
 				set_motor(LEFT_MOTOR, -V_INIT);
-				set_motor(RIGHT_MOTOR, V_INIT);
+				set_motor(RIGHT_MOTOR, -V_INIT);
+
+				sleep1(0,500000);
+
+                set_motor(LEFT_MOTOR, V_INIT);
+                set_motor(RIGHT_MOTOR, -V_INIT);
+
+                sleep1(0,500000);
+
+				stage = 1;
+
+				printf("Yeet MACHIEN");
 			}
             if (detectQuadFour()){
                 stage = 1;
@@ -409,15 +418,15 @@ void doWallMaze() {
                     set_motor(LEFT_MOTOR, V_INIT * rightIR/rHandDistance);
                     set_motor(RIGHT_MOTOR, V_INIT );
                 }
-                if(center > 500){
+                if(centerIR > 500){
                     set_motor(LEFT_MOTOR, -V_INIT);
                     set_motor(RIGHT_MOTOR, V_INIT);
                 }
-            }
         }
     }
-
 }
+
+
 
 /** calcMinMax
  *  Function that finds the min and max of a list.
