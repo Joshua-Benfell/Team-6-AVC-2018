@@ -33,6 +33,8 @@ float PREV_ERROR = 0; //Declare previous error for derivative signal
 int quadrant = 1; //Keep track of which quadrant we are in
 int min = 255;
 int max = 0;
+float maxSignal = 0;
+
 
 
 FILE* f = fopen("logFile.txt", "w+");
@@ -52,6 +54,7 @@ void followMaze();
 int lineOnSide();
 void doWallMaze();
 int detectQuadFour();
+void setMaxSignal(int signal);
 
 int main(){
 	init();
@@ -188,14 +191,17 @@ void doFollowLine(){
 }
 
 void followMaze(){
+	int tIntersections = 0;
 	PREV_ERROR = 0;
 	TOTAL_ERROR = 0;
+	setMaxSignal(10);
+
     while (FOLLOWING_MAZE) {
         //Reset these variables
         min = 255;
         max = 0;
 
-	V_INIT =  (V_INIT * 0.75);
+	V_INIT =  (V_INIT * 0.85);
 
         take_picture();
         calcMinMax();
@@ -240,7 +246,10 @@ void followMaze(){
 	            printf("Black threshold loop ran for %d frames", i);
 			}
         } else if (min > ALL_WHITE_THRESHOLD){
-            //output
+            //increases amount of t intersections because there was another t intersection
+        	tIntersections++;
+
+        	//output
             printf("------------------------\n");
             printf("T intersection detected!\n"
                    "Turning left! \n");
@@ -259,6 +268,10 @@ void followMaze(){
 			}
 		 	doFollowLine();
 
+        }
+
+        if (tIntersections >= 1){
+        	setMaxSignal(0);
         }
     }
 }
@@ -428,6 +441,8 @@ void doWallMaze() {
 
 
 
+
+
 /** calcMinMax
  *  Function that finds the min and max of a list.
  *  Assigns these values to variables to the global vars
@@ -499,5 +514,16 @@ float calcSignal(int prop_err){
 	printf("Line detected! \n");
 	fprintf(f,"P: %f, I: %f, D: %f, F: %f\n", prop_sig, integ_sig, deriv_sig, final_sig);
 
-	return final_sig;
+	if (maxSignal == 0){
+        return final_sig;
+	} else if (maxSignal < final_sig){
+	    return maxSignal;
+	} else if (maxSignal >= final_sig){
+        return final_sig;
+	}
+
+}
+
+void setMaxSignal(int signal){
+    maxSignal = signal;
 }
