@@ -3,7 +3,7 @@ Wednesday Afternoon Lab Team 6 repository for the ENGR 101 AVC challenge.
 
 | Parts                     | Cost (Arthur$)  |
 | ------------------------- | ---------------:|
-| 3 x Long Range IR Sensors |                 |
+| 3 x Long Range IR Sensors |          ?????  |
 
 Limited Number of 3D printed Parts
 
@@ -65,17 +65,27 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * We are a little bit behind our project timetable. Need to catch up next week
 
 ### Week 4 Checklist
-- [ ] Josh: Complete Quadrant 3 & detecting the orange/red patches
+- [x] Josh: Complete Quadrant 3 & detecting the orange/red patches
 - [ ] Michael, Josh: Complete Quadrant 4
-- [ ] Jordan: print a switch mount
-- [ ] Jordan: Design & Print a top plate
-- [ ] Sam: Swap wheels out and reassemble hardware
-- [ ] Sam: Improve cable management
-- [ ] Josh: Update Github
+- [x] Jordan: print a switch mount
+- [x] Jordan: Design & Print a top plate
+- [x] Sam: Swap wheels out and reassemble hardware
+- [x] Sam: Improve cable management
+- [x] Josh: Update Github
 
 #### Week 4 Review
 * Quadrant 3 has been completed
 * Everyone turned up to the scheduled lab on Wednesday
+* Quadrant 4 was started on and we successfully tested to the 92% mark with 2 nudges on the 25th of may
+* Goals for the [Final Week](week-5-checklist) have been set
+* Final top plate has been designed and is to be implemented to final robot design
+* Aside from completing quadrant 4, all goals have been completed this week
+
+### Week 5 Checklist
+- [ ] Josh: Assemble Final Hardware and tidy it up
+- [ ] Michael: Finish Bulk of Quadrant 4 code
+- [ ] Josh, Michael: Tune everything before Wednesday and make sure it works
+- [ ] Josh: Update GitHub
 
 ## AVC Project Timetable
 Overall project plan
@@ -86,8 +96,8 @@ Overall project plan
 | 8  | First iteration of robot built. Quadrants 1 and 2 complete  | AVC plan  | CYBR171 Test Wed 9 May | [Week 2 Checklist](#week-2-checklist) |
 | 9  | Quadrant 3 Complete, Start on Quadrant 4 Complete  | | COMP102/112 Test 2- Mon 14 May  | [Week 3 Checklist](#week-3-checklist) |
 | 10  | Quadrant 4 Complete, Refine of Hardware and Software (unless happy with how it is) | AVC Progress Report | ENGR121 Test 2 - Fri 25 May | [Week 4 Checklist](#week-4-checklist) |
-| 11 | Everything complete and ready for challenge  | |  | [Week 5 Checklist](#week-5-checklist) |
-| 12 | Do Challege. Submit Final Report | | ENGR101 Test 2- Wed 6 Jun | [Week 6 Checklist](#week-6-checklist)|
+| 11 | Everything complete and ready for challenge. Do Challenge| |  | [Week 5 Checklist](#week-5-checklist) |
+| 12 | Complete Final Report | | ENGR101 Test 2- Wed 6 Jun | [Week 6 Checklist](#week-6-checklist)|
 
 ## Weekly Progress Checklist
 - [ ] How has each team member performed against their goal set last week?
