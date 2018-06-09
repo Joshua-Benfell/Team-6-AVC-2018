@@ -86,7 +86,7 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 - [X] Michael: Finish Bulk of Quadrant 4 code
 - [X] Josh, Michael: Tune everything before Wednesday and make sure it works
 - [X] Josh: Update GitHub
-- [ ] Someone who has the time: Finish the CAD model of the robot in OnShape
+- [X] Someone who has the time: Finish the CAD model of the robot in OnShape
 
 #### Week 5 Review
 * We got each quadrant working
