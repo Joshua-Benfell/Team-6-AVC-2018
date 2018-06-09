@@ -92,6 +92,8 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * We got each quadrant working
 * Quadrant 3 was tempermental on test day and failed to turn around on test day despite working the previous day.
 * Failed to trigger Q4 code when it got to the orange spot, believed to be lighting as this was also working the previous day.
+* Percentage reached on test day: 80%
+* Final grade without deductions: 90%
 * **GOOD JOB TEAM!**
 
 ## AVC Project Timetable
