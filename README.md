@@ -82,11 +82,17 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Aside from completing quadrant 4, all goals have been completed this week
 
 ### Week 5 Checklist
-- [ ] Josh: Assemble Final Hardware and tidy it up
-- [ ] Michael: Finish Bulk of Quadrant 4 code
-- [ ] Josh, Michael: Tune everything before Wednesday and make sure it works
-- [ ] Josh: Update GitHub
+- [X] Josh: Assemble Final Hardware and tidy it up
+- [X] Michael: Finish Bulk of Quadrant 4 code
+- [X] Josh, Michael: Tune everything before Wednesday and make sure it works
+- [X] Josh: Update GitHub
 - [ ] Someone who has the time: Finish the CAD model of the robot in OnShape
+
+#### Week 5 Review
+* We got each quadrant working
+* Quadrant 3 was tempermental on test day and failed to turn around on test day despite working the previous day.
+* Failed to trigger Q4 code when it got to the orange spot, believed to be lighting as this was also working the previous day.
+* **GOOD JOB TEAM!**
 
 ## AVC Project Timetable
 Overall project plan
