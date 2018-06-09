@@ -96,6 +96,9 @@ CAD of the ideal first iteration robot can be found [here](https://cad.onshape.c
 * Final grade without deductions: 90%
 * **GOOD JOB TEAM!**
 
+### Week 6 Checklist
+- [ ] ***IMPORTANT*** Everyone: Finish your reports and hand in
+
 ## AVC Project Timetable
 Overall project plan
 
